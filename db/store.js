@@ -18,7 +18,7 @@ class Store {
 
     // write one note
     write(note) {
-        return writeFile(dbFile, JSON.stringify(note)); jsonify the note
+        return writeFile(dbFile, JSON.stringify(note)); //jsonify the note
     } // end write()
 
     // add a note, called in apiRoutes.js
