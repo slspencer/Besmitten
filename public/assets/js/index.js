@@ -28,7 +28,6 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// get all notes
 // getNotes() is called in apiRoutes.js
 const getNotes = () =>
   fetch('/api/notes', {
@@ -38,7 +37,6 @@ const getNotes = () =>
     },
   });
 
-// save a note
 // saveNote() is called in apiRoutes.js
 const saveNote = (note) =>
   fetch('/api/notes', {
@@ -49,9 +47,7 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-
-// delete a note
-// deleteNote() is called in apiRoutes.js
+// deleteNote() is called in apiRoutes.js and this file, below
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -77,6 +73,7 @@ const renderActiveNote = () => {
   }
 };
 
+// called in this file, below
 const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
@@ -89,6 +86,7 @@ const handleNoteSave = () => {
 };
 
 // Delete the clicked note
+// called in this file, below
 const handleNoteDelete = (e) => {
   // Prevents the click listener for the list from being called when the button inside of it is clicked
   e.stopPropagation();

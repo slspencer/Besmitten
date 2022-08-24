@@ -5,7 +5,7 @@
 const router = require("express").Router();
 const store = require("../db/store.js");
 
-// Save a note 
+// Save a note ("/notes" is the html route to notes.html)
 router.post("/notes", (req, res) => {
     console.log("POST a note");
     store   
@@ -14,12 +14,11 @@ router.post("/notes", (req, res) => {
         .catch( err => res.status(500).json(err)); // display error 500 if any errors
 });
 
-// Delete a note 
+// Delete a note based on id
 router.delete("/notes/:id", (req, res) => {
     console.log("DELETE a note");
     store
-        .deleteNote(req.body) // delete note from the store
-        .then( console.log('We will delete a note here'))
+        .deleteNote(req.body) // delete note 
         .catch( err => res.status(500).json(err)); // display error 500 if any errors
 })
 
