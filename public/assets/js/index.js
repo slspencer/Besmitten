@@ -1,3 +1,4 @@
+// === variables and constants =============
 let noteTitle;
 let noteText;
 let saveNoteBtn;
@@ -12,6 +13,11 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+// activeNote is used to keep track of the note in the textarea
+let activeNote = {};
+
+// === functions =============================
+
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -22,9 +28,8 @@ const hide = (elem) => {
   elem.style.display = 'none';
 };
 
-// activeNote is used to keep track of the note in the textarea
-let activeNote = {};
-
+// get all notes
+// getNotes() is called in apiRoutes.js
 const getNotes = () =>
   fetch('/api/notes', {
     method: 'GET',
@@ -33,6 +38,8 @@ const getNotes = () =>
     },
   });
 
+// save a note
+// saveNote() is called in apiRoutes.js
 const saveNote = (note) =>
   fetch('/api/notes', {
     method: 'POST',
@@ -42,6 +49,9 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
+
+// delete a note
+// deleteNote() is called in apiRoutes.js
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
@@ -50,6 +60,7 @@ const deleteNote = (id) =>
     },
   });
 
+// called in this file, below
 const renderActiveNote = () => {
   hide(saveNoteBtn);
 
