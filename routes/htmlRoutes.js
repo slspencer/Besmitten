@@ -14,8 +14,10 @@ module.exports = (app) => {
     // initial page load "/" serves index.html
     app.get("/", (req, res) => {
         console.log("HTML Route to ../public/index.html");
-        console.log(`${__dirname}`);
-        res.sendFile(path.join("../public/index.html"));
+        console.log(`__dirname = ${__dirname}`); // __dirname in this file is '/app/routes
+        var indexPath = path.join(__dirname, '..', 'public', 'index.html');
+        console.log(`indexPath = ${indexPath}`); // __dirname in this file is '/app/routes
+        res.sendFile(indexPath);
     });
 
     // route to display the notes.html file
