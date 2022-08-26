@@ -1,7 +1,11 @@
-// notes are stored in the notes.html file in Besmitten/public/assets
-// notes are saved to db.json in the db directory
+// notes are dynamically written to ./public/assets/notes.html
+// notes are stored to ./db/db.json
 
 // === variables and constants ==========================
+const path = require('path');
+const fs = require('fs');
+var uniqid = require('uniqid');
+
 const router = require("express").Router();
 const store = require("../db/store.js");
 
