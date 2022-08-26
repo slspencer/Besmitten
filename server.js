@@ -3,14 +3,12 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const uuid = require('uuid');
-const db = require("./db/db.json");
 
 
 // init express app
 console.log("server.js - Init Express");
 const app = express(); // create an express application
 var PORT = process.env.PORT || 3001; // listen on 3001, heroku listens on 80 by default
-let readDbFile = JSON.parse(fs.readFileSync(db, "utf8"));
 
 // middleware to work with routes
 console.log("server.js - setup middleware");
