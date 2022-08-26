@@ -9,7 +9,7 @@ const dbFile = "./db/db.json";
 let readDbFile = JSON.parse(fs.readFileSync(dbFile, "utf8"));
 
 // middleware to work with routes
-app.use(express.static(__dirname)); //  middleware to share static html files in current folder with the browser
+app.use("/public", express.static(__dirname + "/public"));//  middleware to serve static html files in 'public' directory
 app.use(express.urlencoded( { extended: true } )); // middleware to parse incoming POST requests with URLencoded payloads
 app.use(express.json()); // middleware to jsonify data
 
