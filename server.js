@@ -18,8 +18,8 @@ app.use(express.json()); // middleware to jsonify data
 
 // define routes
 console.log("server.js - define routes");
-require('./routes/apiRoutes')(app); // manage api routes in a separate file, return exported objects in app
-require('./routes/htmlRoutes')(app); // manage html routes in a separate file, return exported objects in app
+require('./routes/apiRoutes.js')(app); // manage api routes in a separate file, return exported objects in app
+require('./routes/htmlRoutes.js')(app); // manage html routes in a separate file, return exported objects in app
 
 // start server on port
 console.log("server.js - listen on port");
