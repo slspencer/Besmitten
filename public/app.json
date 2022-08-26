@@ -1,0 +1,7 @@
+{
+    "name": "Note Taking App",
+    "description": "Module 11 Challenge",
+    "repository": "https://github.com/heroku/besmitten.git",
+    "logo": "https://node-js-sample.herokuapp.com/node.png",
+    "keywords": ["node", "express", "static"]
+}
