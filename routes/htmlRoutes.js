@@ -5,11 +5,6 @@ const path = require("path");
 
 module.exports = (app) => {
 
-    app.get("/", (req, res) => {
-        console.log("HTML route to the home page");
-        res.send(path.join(__dirname, "index.html"));
-    });
-
     // route to display the notes.html file
     app.get("/notes", (req, res) => {
         console.log("HTML Route to public/notes.html");
