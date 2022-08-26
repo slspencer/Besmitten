@@ -22,7 +22,7 @@ module.exports = (app) => {
         .post(function (req, res) {
             console.log("POST a note");
             // get jsonified notes from database into a local var db
-            let dbPath = path.join(__dirname, "/db/db.json");
+            let dbPath = path.join(__dirname, "..", "db", "db.json");
             // create the JSON note object to be posted
             let newNote = {
                 title: req.body.title,
