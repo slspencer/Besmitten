@@ -5,16 +5,22 @@ const path = require("path");
 
 module.exports = (app) => {
 
+    app.get("/", (req, res) => {
+        console.log("HTML route to the home page");
+        res.send(path.join(__dirname, "index.html"));
+    });
+
     // route to display the notes.html file
-    app.get("/notes", function(req, res) {
+    app.get("/notes", (req, res) => {
         console.log("HTML Route to public/notes.html");
-        res.sendFile(path.join(__dirname, "./../public/notes.html")); // returns notes.html
+        res.send('notes.html');
+        //res.sendFile(path.join(__dirname, "notes.html")); // returns notes.html
     });
 
     // all other routes return index.html
-    app.get("*", function(req,res) {
+    app.get("*", (req,res) => {
         console.log("getting route to index.html");
-        res.sendFile(path.join(__dirname, "./../public/index.html")); // returns index.html
+        res.sendFile(path.join(__dirname, "index.html")); // returns index.html
     });
 
 }
