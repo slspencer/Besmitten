@@ -25,6 +25,5 @@ module.exports = (app) => {
         console.log("HTML Route for everything else, returns index.html");
         res.sendFile(path.join(__dirname, "/public/index.html")); // returns index.html
     });
-
 }
 
