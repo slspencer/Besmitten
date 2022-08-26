@@ -7,15 +7,15 @@ const apiRoutes = require("./routes/apiRoutes.js");
 const htmlRoutes = require("./routes/htmlRoutes.js");
 
 // middleware
-app.use(express.static(__dirname + '/public')); // gives a '/' route to public files
+app.use(express.static('public')); // gives a '/' route to public files
 app.use(express.urlencoded( { extended: true } )); // middleware to parse data
 app.use(express.json()); // middleware to jsonify data
 
 // create routes to route files
 //require('./routes/apiRoutes')(app); // apiRoute to db/db.jon
 //require('./routes/htmlRoutes')(app); // htmlRoute to public/notes.html
-app.use('/api', apiRoutes);
-app.use('/', htmlRoutes);
+require('./routes/apiRoutes')(app);
+require('./routes/htmlRoutes')(app);
 
 // start server on port
 app.listen(PORT, () => {

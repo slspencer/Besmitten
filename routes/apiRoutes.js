@@ -3,7 +3,6 @@
 
 // === variables and constants ==========================
 
-const router = require("express").Router();
 const path = require('path');
 const fs = require('fs');
 let uniqid = require('uniqid'); 
@@ -11,51 +10,53 @@ let uniqid = require('uniqid');
 // === functions =======================================
 
 // POST a note 
-router.post("/api/notes", (req, res) => {
 
-    console.log("POST a note");
+module.exports = (app) =>
 
-    // get jsonified notes from database into a local var db
-    let noteDB = JSON.parse(fs.readFileSync('db/db.json'));
-    res.json(noteDB);
+    app.post("/api/notes", (req, res) => {
 
-    // create the JSON note object to be posted
-    let postNote = {
-        title: req.body.title,
-        text:  req.body.text,
-        id: uniqid()
-    };
+        console.log("POST a note");
 
-    // add the note object to the local var db
-    noteDB.push(postNote);
+        // get jsonified notes from database into a local var db
+        let noteDB = JSON.parse(fs.readFileSync('db/db.json'));
+        res.json(noteDB);
 
-    // sync local var db back to ./db/db.json
-    fs.writeFileSync('../db/db.json', JSON.stringify(noteDB));
-    res.json(noteDB); // jsonify the result
-});
+        // create the JSON note object to be posted
+        let postNote = {
+            title: req.body.title,
+            text:  req.body.text,
+            id: uniqid()
+        };
 
-// Delete a note based on id
-router.delete("api/notes/:id", (req, res) => {
+        // add the note object to the local var db
+        noteDB.push(postNote);
 
-    console.log("DELETE a note");
+        // sync local var db back to ./db/db.json
+        fs.writeFileSync('../db/db.json', JSON.stringify(noteDB)); // user relative path with file operations
+        res.json(noteDB); // jsonify the result
+    });
 
-    // get jsonified notes from database into a local var db
-    let db = JSON.parse(fs.readFileSync('db/db.json'));
-    // get all notes that don't have the id into local var keepNotes
-    let keepNotes = db.filter(item=> item.id !== req.params.id);
-    // sync local var keepNotes to ./db/db.json
-    fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
-    res.json(keepNotes); // jsonify the results 
-})
+    // Delete a note based on id
+    app.delete("api/notes/:id", (req, res) => {
 
-// Get all notes from .db/db.json, return them jsonified
-router.get("/api/notes", (req, res) => {
+        console.log("DELETE a note");
 
-    console.log("GET all notes");
-    // set result to 
-    res.sendFile(path.join(__dirname, '../db/db.json'));
-});
+        // get jsonified notes from database into a local var db
+        let db = JSON.parse(fs.readFileSync('db/db.json')); 
+        // get all notes that don't have the id into local var keepNotes
+        let keepNotes = db.filter(item=> item.id !== req.params.id);
+        // sync local var keepNotes to ./db/db.json
+        fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
+        res.json(keepNotes); // jsonify the results 
+    });
 
-// make router available to other scripts
-module.exports = router;
+    // Get all notes from .db/db.json, return them jsonified
+    app.get("/api/notes", (req, res) => {
+
+        console.log("GET all notes");
+
+        // set result to 
+        res.sendFile(path.join(__dirname, '../db/db.json')); // use relative path with file operationss
+    });
+
 
