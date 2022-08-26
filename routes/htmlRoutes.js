@@ -1,24 +1,29 @@
 // === variables and constants ================
 const path = require("path");
+const express = require("express");
 
 // === functions ==============================
 
 module.exports = (app) => {
 
-    app.use(express.static(path.join(__dirname, 'public')));
+    // initial page load "/" serves index.html
+    app.get("/", (req, res) => {
+        console.log("HTML Route to /public/index.html")
+        res.sendFile(path.join(__dirname, "/public/index.html"));
+    });
 
     // route to display the notes.html file
-    app.get("/notes.html", (req, res) => {
-        console.log("HTML Route to public/notes.html");
+    app.get("/notes", (req, res) => {
+        console.log("HTML Route to /public/notes.html");
 
-        res.send(__dirname + '/public' + 'notes.html');
+        res.sendFile(path.join(__dirname,'/public/notes.html'));
         //res.sendFile(path.join(__dirname, "notes.html")); // returns notes.html
     });
 
     // all other routes return index.html
     app.get("*", (req, res) => {
-        console.log("getting route to index.html");
-        res.sendFile(__dirname + '/public' + 'index.html')); // returns index.html
+        console.log("HTML Route for everything else, returns index.html");
+        res.sendFile(path.join(__dirname, "/public/index.html")); // returns index.html
     });
 
 }
