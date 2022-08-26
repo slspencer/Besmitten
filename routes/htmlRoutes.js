@@ -13,7 +13,8 @@ module.exports = (app) => {
 
     // initial page load "/" serves index.html
     app.get("/", (req, res) => {
-        console.log("HTML Route to ../public/index.html")
+        console.log("HTML Route to ../public/index.html");
+        console.log(`${__dirname}`);
         res.sendFile(path.join("../public/index.html"));
     });
 
