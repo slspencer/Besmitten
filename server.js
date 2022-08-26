@@ -1,24 +1,24 @@
 // Install express, apiRoutes, and htmlRoutes
 const express = require('express');
-const app = express(); // init express
-const PORT = process.env.PORT || 3001; // listen on 3001, heroku listens on 80 by default
+const app = express(); // create an express application
+const fs = require('fs');
+const uuid = require('uuid');
 
-const apiRoutes = require("./routes/apiRoutes.js");
-const htmlRoutes = require("./routes/htmlRoutes.js");
+var PORT = process.env.PORT || 3001; // listen on 3001, heroku listens on 80 by default
+const dbFile = "./db/db.json";
+let readDbFile = JSON.parse(fs.readFileSync(dbFile, "utf8"));
 
-// middleware
-app.use(express.static('public')); // gives a '/' route to public files
-app.use(express.urlencoded( { extended: true } )); // middleware to parse data
+// middleware to work with routes
+app.use(express.static(__dirname)); //  middleware to share static html files in current folder with the browser
+app.use(express.urlencoded( { extended: true } )); // middleware to parse incoming POST requests with URLencoded payloads
 app.use(express.json()); // middleware to jsonify data
 
-// create routes to route files
-//require('./routes/apiRoutes')(app); // apiRoute to db/db.jon
-//require('./routes/htmlRoutes')(app); // htmlRoute to public/notes.html
-require('./routes/apiRoutes')(app);
-require('./routes/htmlRoutes')(app);
+// define routes
+require('./routes/apiRoutes')(app); // manage api routes in a separate file, return exported objects in app
+require('./routes/htmlRoutes')(app); // manage html routes in a separate file, return exported objects in app
 
 // start server on port
-app.listen(PORT, () => {
+app.listen(PORT, function() {
     console.log(`Note taking app listening at http://localhost:${PORT}`);
 });
 
