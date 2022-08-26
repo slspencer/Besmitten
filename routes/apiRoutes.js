@@ -1,38 +1,59 @@
-// notes are dynamically written to ./public/assets/notes.html
-// notes are stored to ./db/db.json
+// api route module
+// notes are stored to db/db.json
 
 // === variables and constants ==========================
-const path = require('path');
-const fs = require('fs');
-var uniqid = require('uniqid');
 
 const router = require("express").Router();
-const store = require("../db/store.js");
+const path = require('path');
+const fs = require('fs');
+let uniqid = require('uniqid'); 
 
-// Save a note ("/notes" is the html route to notes.html)
-router.post("/notes", (req, res) => {
+// === functions =======================================
+
+// POST a note 
+router.post("/api/notes", (req, res) => {
+
     console.log("POST a note");
-    store   
-        .addNote(req.body) // add note to the request
-        .then( note => res.json(note) ) // jsonify the results
-        .catch( err => res.status(500).json(err)); // display error 500 if any errors
+
+    // get jsonified notes from database into a local var db
+    let noteDB = JSON.parse(fs.readFileSync('db/db.json'));
+    res.json(noteDB);
+
+    // create the JSON note object to be posted
+    let postNote = {
+        title: req.body.title,
+        text:  req.body.text,
+        id: uniqid()
+    };
+
+    // add the note object to the local var db
+    noteDB.push(postNote);
+
+    // sync local var db back to ./db/db.json
+    fs.writeFileSync('../db/db.json', JSON.stringify(noteDB));
+    res.json(noteDB); // jsonify the result
 });
 
 // Delete a note based on id
-router.delete("/notes/:id", (req, res) => {
+router.delete("api/notes/:id", (req, res) => {
+
     console.log("DELETE a note");
-    store
-        .deleteNote(req.body) // delete note 
-        .catch( err => res.status(500).json(err)); // display error 500 if any errors
+
+    // get jsonified notes from database into a local var db
+    let db = JSON.parse(fs.readFileSync('db/db.json'));
+    // get all notes that don't have the id into local var keepNotes
+    let keepNotes = db.filter(item=> item.id !== req.params.id);
+    // sync local var keepNotes to ./db/db.json
+    fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
+    res.json(keepNotes); // jsonify the results 
 })
 
-// Get all notes
-router.get("/notes", (req, res) => {
+// Get all notes from .db/db.json, return them jsonified
+router.get("/api/notes", (req, res) => {
+
     console.log("GET all notes");
-    store
-        .getNotes() // getNotes() defined in store.js -- get all the notes, no need for a parameter
-        .then( notes => res.json(notes)) // jsonify the results
-        .catch(err => res.status(500).json(err))  // display error 500 if any errors
+    // set result to 
+    res.sendFile(path.join(__dirname, '../db/db.json'));
 });
 
 // make router available to other scripts
