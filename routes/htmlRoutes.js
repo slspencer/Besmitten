@@ -15,7 +15,7 @@ module.exports = (app) => {
     // all other routes return index.html
     app.get("*", (req,res) => {
         console.log("getting route to index.html");
-        res.sendFile(path.join(__dirname, "index.html")); // returns index.html
+        res.sendFile(path.join("public/index.html")); // returns index.html
     });
 
 }
