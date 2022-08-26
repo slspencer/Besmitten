@@ -36,5 +36,5 @@ This Note Taker app writes and saves notes, deployed to Heroku.
 ## Deployed to Heroku
 
 ## Images
-![Note Taking App](assets/img/screenshot.png) 
+![Note Taking App](images/screenshot.png) 
 

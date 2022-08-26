@@ -7,7 +7,7 @@ const apiRoutes = require("./routes/apiRoutes.js");
 const htmlRoutes = require("./routes/htmlRoutes.js");
 
 // middleware
-app.use(express.static('public')); // gives a '/' route to public files
+app.use(express.static(__dirname + '/public')); // gives a '/' route to public files
 app.use(express.urlencoded( { extended: true } )); // middleware to parse data
 app.use(express.json()); // middleware to jsonify data
 
